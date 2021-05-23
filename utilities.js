@@ -302,7 +302,7 @@ class Utilities {
   
   saveDownload({DATA, FILENAME}) {
     var file = new Blob([DATA]);
-    window.navigator.msSaveOrOpenBlob(file, FILENAME); 
+    navigator.msSaveOrOpenBlob(file, FILENAME); 
   }
 
 }
