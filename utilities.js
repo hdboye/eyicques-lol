@@ -210,11 +210,15 @@ class Utilities {
 
           blockType: Scratch.BlockType.COMMAND,
 
-          text: 'save file with data [DATA]',
+          text: 'save file with data [DATA] w filename [FILENAME]',
           arguments: {
             DATA: {
               type: Scratch.ArgumentType.STRING,
               defaultValue: 'the things in the file'
+            },
+            FILENAME: {
+              type: Scratch.ArgumentType.STRING,
+              defaultValue: 'filename'
             }
           }
         }
@@ -296,10 +300,17 @@ class Utilities {
     return STRING.toString().replace(new RegExp(REGEX, 'gi'), NEWSTRING);
   }
   
-  saveDownload({DATA}) {
-    var file = new Blob([DATA]);
-    var url  = window.URL.createObjectURL(file);
-    window.location.assign(url);
+  saveDownload({DATA, FILENAME}) {
+     var element = document.createElement('a');
+     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(DATA));
+     element.setAttribute('download', FILENAME);
+
+     element.style.display = 'none';
+     document.body.appendChild(element);
+
+     element.click();
+
+     document.body.removeChild(element);
   }
 
 }
