@@ -208,14 +208,10 @@ class Utilities {
         {
           opcode: 'saveDownload',
 
-          blockType: Scratch.BlockType.REPORTER,
+          blockType: Scratch.BlockType.COMMAND,
 
-          text: 'save file with filename [FILENAME] and [DATA]',
+          text: 'save file with data [DATA]',
           arguments: {
-            FILENAME: {
-              type: Scratch.ArgumentType.STRING,
-              defaultValue: 'fartData'
-            },
             DATA: {
               type: Scratch.ArgumentType.STRING,
               defaultValue: 'the things in the file'
@@ -300,9 +296,10 @@ class Utilities {
     return STRING.toString().replace(new RegExp(REGEX, 'gi'), NEWSTRING);
   }
   
-  saveDownload({DATA, FILENAME}) {
+  saveDownload({DATA}) {
     var file = new Blob([DATA]);
-    navigator.msSaveOrOpenBlob(file, FILENAME); 
+    var url  = window.URL.createObjectURL(file);
+    window.location.assign(url);
   }
 
 }
